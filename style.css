@@ -9,8 +9,8 @@ body {
     justify-content: center;
     align-items: center;
     font-family: "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
-    color: #ffffff;
-    text-shadow: 0px 2px 4px rgba(0,0,0,0.9);
+    /* CHANGE: Main text color is now Red */
+    color: #ff3333; 
 }
 
 #bg-video {
@@ -24,10 +24,10 @@ body {
     z-index: -100;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    filter: brightness(0.5); /* Darkened for better text readability */
+    /* CHANGE: Darkened slightly less to let the red pop */
+    filter: brightness(0.4) grayscale(20%); 
 }
 
-/* --- 2. Top Right Info --- */
 #colophon {
     position: absolute;
     top: 30px;
@@ -37,116 +37,91 @@ body {
 }
 
 .meta-text {
-    font-size: 12pt;
-    color: #e0e0e0;
+    font-size: 10pt;
+    color: #fff; /* Keep meta info white so it doesn't distract */
+    opacity: 0.7;
     margin-bottom: 5px;
     letter-spacing: 1px;
 }
 
-/* --- 3. Main Speech Output Area --- */
+/* --- 2. Main Speech Area --- */
 #speech-output {
     position: relative;
-    width: 80%;
-    max-width: 900px;
-    height: 70vh; /* Fixed height to allow scrolling */
-    overflow-y: auto; /* Scroll if text gets too long */
-    text-align: center;
-    z-index: 5;
-    padding-right: 10px;
+    width: 85%;
+    max-width: 1000px;
+    height: 80vh;
+    overflow-y: auto;
     
-    /* Hide scrollbar for clean look */
+    /* CHANGE: Center alignment for everything */
+    text-align: center; 
+    z-index: 5;
+    
+    /* CHANGE: Hide scrollbar */
     scrollbar-width: none; 
-    -ms-overflow-style: none;
 }
-#speech-output::-webkit-scrollbar { 
-    display: none; 
-}
+#speech-output::-webkit-scrollbar { display: none; }
 
-/* --- 4. Text Animations & Styles --- */
-/* Common style for all generated paragraphs */
+/* --- 3. Text Typography --- */
 #speech-output p {
     opacity: 0;
     animation: fadeInSlide 1.5s forwards;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     line-height: 1.6;
+    
+    /* CHANGE: Heavy shadow to make Red readable on video */
+    text-shadow: 
+        3px 3px 0px #000000, 
+        -1px -1px 0 #000000,  
+        1px -1px 0 #000000,
+        -1px 1px 0 #000000,
+        1px 1px 0 #000000;
 }
 
-/* Specific styles based on JS classes */
-.section-divider {
-    font-size: 14pt;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 50px;
-    border-top: 1px solid #555;
-    padding-top: 20px;
+/* The Congress Header */
+.congress-header {
+    font-size: 20pt;
+    color: #ffffff; /* White header for contrast */
+    background: #cc0000; /* Red background box */
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    border: 2px solid #fff;
+    box-shadow: 4px 4px 0px #000;
 }
 
 .elected-text {
     font-size: 18pt;
-    font-style: italic;
-    color: #ddd;
+    font-weight: bold;
+    color: #ff6666; /* Slightly lighter red */
 }
 
+/* Body Text (The stanzas) */
 .stanza-text {
-    font-size: 22pt;
-    font-weight: 300;
+    font-size: 24pt;
+    font-weight: 600;
 }
 
-.thank-you-text {
-    font-size: 30pt;
-    font-weight: bold;
-    color: #ffd700; /* Gold */
-    margin-top: 40px;
-}
-
-.system-message {
-    font-size: 12pt;
-    color: #00ff00; /* Green for system status */
-    font-family: monospace;
-}
-
-.error-message {
-    font-size: 14pt;
-    color: #ff4444;
-    font-weight: bold;
-}
-
-/* Animation Keyframes */
-@keyframes fadeInSlide {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* --- 5. Controls (Buttons) --- */
-#controls {
-    position: fixed;
-    bottom: 40px;
-    z-index: 20;
-    display: flex;
-    gap: 20px;
-}
-
-button {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 12px 24px;
-    font-family: inherit;
-    font-size: 10pt;
-    cursor: pointer;
+/* CHANGE: Massive text for specific lines */
+.shout-text {
+    display: block; /* Force it to its own line */
+    font-size: 50pt; /* HUGE font */
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
+    color: #ff0000;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 
+        4px 4px 0px #000,
+        -2px -2px 0 #000;
+    letter-spacing: 5px;
 }
 
-button:hover:not(:disabled) {
-    background: #fff;
-    color: #000;
-}
-
-button:disabled {
-    opacity: 0.3;
-    border-color: #888;
-    cursor: not-allowed;
+/* Keyframes */
+@keyframes fadeInSlide {
+    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
