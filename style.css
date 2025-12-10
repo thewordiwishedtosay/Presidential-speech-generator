@@ -38,14 +38,7 @@ body {
     overflow-y: auto;
     text-align: center;
     z-index: 5;
-    
-    /* Semi-transparent White Background */
-    background-color: rgba(255, 255, 255, 0.6);
-    
-    /* Padding and corners */
-    padding: 40px;
-    border-radius: 15px;
-    
+
     /* Hide scrollbar */
     scrollbar-width: none; 
 }
