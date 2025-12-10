@@ -27,7 +27,7 @@ body {
     transform: translate(-50%, -50%);
     object-fit: cover;
     /* Darken video so red text pops */
-    filter: brightness(0.4) grayscale(30%); 
+    filter: brightness(0.4) grayscale(50%); 
 }
 
 /* --- 2. Main Speech Area --- */
@@ -53,7 +53,7 @@ body {
     line-height: 1.8;
     
     /* NEW: A deeper, more traditional Chinese Red */
-    color: #DE2910; 
+    color: #660000; 
     
     /* REMOVED: Black outline/shadow */
     /* text-shadow: 2px 2px 0px #000, -1px -1px 0 #000; */
@@ -63,7 +63,7 @@ body {
 .congress-header {
     font-size: 16pt;
     color: #fff; 
-    background: #b30000; /* Keep dark red background box */
+    background: #000000; /* Keep dark red background box */
     display: inline-block;
     padding: 8px 20px;
     font-weight: bold;
