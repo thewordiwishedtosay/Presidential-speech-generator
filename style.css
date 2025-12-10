@@ -39,10 +39,10 @@ body {
     text-align: center;
     z-index: 5;
     
-    /* --- NEW: Semi-transparent White Background --- */
-    background-color: rgba(255, 255, 255, 0.5);
+    /* Semi-transparent White Background */
+    background-color: rgba(255, 255, 255, 0.6);
     
-    /* Added padding/radius so the text doesn't touch the edges */
+    /* Padding and corners */
     padding: 40px;
     border-radius: 15px;
     
@@ -58,16 +58,20 @@ body {
     margin-bottom: 2rem;
     line-height: 1.8;
     
-    /* Fixed typo: Standard Chinese Red */
+    /* DEFAULT COLOR: This ensures everything is Red unless we say otherwise */
     color: #DE2910; 
 }
 
-/* The Congress Header */
+/* --- 4. Specific Styles --- */
+
+/* The Congress Header (THE ONLY BLACK TEXT) */
 .congress-header {
     font-size: 16pt;
     
-    /* --- NEW: Black Text on Red Background --- */
-    color: #000000; 
+    /* Black Text */
+    color: #000000 !important; 
+    
+    /* Red Background */
     background: #DE2910; 
     
     /* Golden Outline */
@@ -85,13 +89,14 @@ body {
 .elected-text {
     font-size: 14pt;
     font-weight: bold;
-    color: #DE2910;
+    color: #DE2910; /* Enforce Red */
 }
 
 /* Main Body Text (Stanzas) */
 .stanza-text {
     font-size: 18pt;
     font-weight: 500;
+    color: #DE2910; /* Enforce Red */
 }
 
 /* "Fellow Deputies" */
@@ -100,7 +105,7 @@ body {
     font-size: 30pt; 
     font-weight: 900;
     text-transform: uppercase;
-    color: #FF0000; 
+    color: #FF0000; /* Bright Red */
     margin-top: 40px;
     margin-bottom: 20px;
     letter-spacing: 3px;
@@ -111,7 +116,7 @@ body {
     display: block;
     font-size: 40pt;
     font-weight: 900;
-    color: #FF0000; 
+    color: #FF0000; /* Pure Red */
     text-transform: uppercase;
     margin-top: 50px;
     margin-bottom: 30px;
