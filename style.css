@@ -2,18 +2,15 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     width: 100vw;
-    overflow: hidden; /* No scrollbars on the body itself */
-    
-    /* Flexbox to Center Content */
+    overflow: hidden;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
-    
+    justify-content: center;
+    align-items: center;
     font-family: "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
     color: #ffffff;
-    text-shadow: 0px 2px 4px rgba(0,0,0,0.9); /* Stronger shadow for readability */
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.9);
 }
 
 #bg-video {
@@ -25,18 +22,18 @@ body {
     width: auto;
     height: auto;
     z-index: -100;
-    transform: translate(-50%, -50%); /* Keeps video centered */
+    transform: translate(-50%, -50%);
     object-fit: cover;
-    filter: brightness(0.6); /* Darken video slightly more for contrast */
+    filter: brightness(0.5); /* Darkened for better text readability */
 }
 
-/* --- 2. The Fixed "Colophon" (Top Right Corner) --- */
+/* --- 2. Top Right Info --- */
 #colophon {
     position: absolute;
     top: 30px;
     right: 40px;
     text-align: right;
-    z-index: 10; /* Ensure it stays above the video */
+    z-index: 10;
 }
 
 .meta-text {
@@ -46,48 +43,110 @@ body {
     letter-spacing: 1px;
 }
 
-/* --- 3. The Main Centered Text Area --- */
-#main {
-    width: 80%;          /* limit width so lines break nicely */
-    max-width: 900px;    /* Never get too wide on huge screens */
-    text-align: center;  /* Center the text lines themselves */
+/* --- 3. Main Speech Output Area --- */
+#speech-output {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    height: 70vh; /* Fixed height to allow scrolling */
+    overflow-y: auto; /* Scroll if text gets too long */
+    text-align: center;
+    z-index: 5;
+    padding-right: 10px;
     
-    /* Optional: Subtle background to help readability if video is bright */
-    /* background: rgba(0, 0, 0, 0.2); */ 
-    /* padding: 20px; */
-    /* border-radius: 10px; */
+    /* Hide scrollbar for clean look */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+#speech-output::-webkit-scrollbar { 
+    display: none; 
 }
 
-/* Animation for new lines */
-.line {
+/* --- 4. Text Animations & Styles --- */
+/* Common style for all generated paragraphs */
+#speech-output p {
     opacity: 0;
-    animation: fadeInSlide 2s forwards; /* Fade in with slight upward movement */
-    margin-bottom: 1.5rem; /* Space between lines */
-    font-size: 24pt; /* Bigger text */
-    line-height: 1.5;
+    animation: fadeInSlide 1.5s forwards;
+    margin-bottom: 2rem;
+    line-height: 1.6;
 }
 
-/* Highlighted lines (Fellow Deputies / Thank you) */
-.highlight {
-    color: #ffd700; /* Gold */
-    font-size: 28pt;
+/* Specific styles based on JS classes */
+.section-divider {
+    font-size: 14pt;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 50px;
+    border-top: 1px solid #555;
+    padding-top: 20px;
+}
+
+.elected-text {
+    font-size: 18pt;
+    font-style: italic;
+    color: #ddd;
+}
+
+.stanza-text {
+    font-size: 22pt;
+    font-weight: 300;
+}
+
+.thank-you-text {
+    font-size: 30pt;
     font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    color: #ffd700; /* Gold */
+    margin-top: 40px;
 }
 
-.standard {
-    color: #fff;
-    font-weight: 300; /* Lighter font weight for elegance */
+.system-message {
+    font-size: 12pt;
+    color: #00ff00; /* Green for system status */
+    font-family: monospace;
 }
 
+.error-message {
+    font-size: 14pt;
+    color: #ff4444;
+    font-weight: bold;
+}
+
+/* Animation Keyframes */
 @keyframes fadeInSlide {
-    0% { 
-        opacity: 0;
-        transform: translateY(20px); /* Start slightly lower */
-    }
-    100% { 
-        opacity: 1; 
-        transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 5. Controls (Buttons) --- */
+#controls {
+    position: fixed;
+    bottom: 40px;
+    z-index: 20;
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 10pt;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
+}
+
+button:disabled {
+    opacity: 0.3;
+    border-color: #888;
+    cursor: not-allowed;
 }
