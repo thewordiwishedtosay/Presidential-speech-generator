@@ -7,26 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <video playsinline autoplay muted loop id="bg-video">
         <source src="background-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
     </video>
 
-    <div class="content-overlay">
-        <div class="container">
-            <h1>🎙️ Dynamic Speech Generator</h1>
-            
-            <div class="controls">
-                <button id="start-button">Start Speech</button>
-                <button id="stop-button" disabled>Stop Speech</button>
-            </div>
-
-            <div id="speech-output" class="speech-output">
-                <p class="initial-message">Click "Start Speech" to begin the dynamic presentation.</p>
-            </div>
-        </div>
+    <div id="colophon">
+        <div class="meta-text">【Dynamic Speech】</div>
+        <div class="meta-text">Infinite Generation</div>
+        <div class="meta-text" id="status-indicator">Initializing...</div>
     </div>
+
+    <div id="main"></div>
 
     <script src="script.js"></script>
 </body>
