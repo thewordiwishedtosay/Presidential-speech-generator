@@ -53,7 +53,7 @@ body {
     line-height: 1.8;
     
     /* NEW: A deeper, more traditional Chinese Red */
-    color: #660000; 
+    color: #e600b; 
     
     /* REMOVED: Black outline/shadow */
     /* text-shadow: 2px 2px 0px #000, -1px -1px 0 #000; */
@@ -62,8 +62,8 @@ body {
 /* The Congress Header */
 .congress-header {
     font-size: 16pt;
-    color: #fff; 
-    background: #000000; /* Keep dark red background box */
+    color: #000000; 
+    background: #941524; /* Keep dark red background box */
     display: inline-block;
     padding: 8px 20px;
     font-weight: bold;
