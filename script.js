@@ -1,125 +1,91 @@
-// Function to simulate time.sleep()
+// Helper for delays
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// DOM Elements
 const outputDiv = document.getElementById('speech-output');
-const startButton = document.getElementById('start-button');
-const stopButton = document.getElementById('stop-button');
-const statusIndicator = document.getElementById('status-indicator');
 
-let isRunning = false; // Control flag for the loop
+// Initial starting number for the congress (will start at 13th)
+let congressCount = 12;
 
-const electedText = "I was elected at this session to continue to serve as the president of the People's Republic of China (PRC). I would like to express my heartfelt gratitude for the trust placed in me by all the deputies and the Chinese people of all ethnic groups.<br><br>";
+const electedText = "I was elected at this session to continue to serve as the president of the People's Republic of China (PRC). I would like to express my heartfelt gratitude for the trust placed in me by all the deputies and the Chinese people of all ethnic groups.";
 
-/**
- * Selects a random number of sentences (1 to 8) from the array.
- */
+// Select random sentences
 function sampleSentences(sentences) {
-    const k = Math.floor(Math.random() * 8) + 1; 
+    const k = Math.floor(Math.random() * 5) + 2; 
     const shuffled = [...sentences].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, k);
 }
 
-/**
- * Appends text content to the display area.
- */
+// Display function with auto-scroll
 function displayText(text, className = '') {
     const p = document.createElement('p');
-    if (className) p.classList.add(className);
+    if (className) p.className = className;
     p.innerHTML = text; 
     outputDiv.appendChild(p);
     
-    // Auto-scroll to the bottom nicely
     outputDiv.scrollTo({
         top: outputDiv.scrollHeight,
         behavior: 'smooth'
     });
 }
 
-// Function to reset and stop the execution
-function stopExecution() {
-    isRunning = false;
-    startButton.disabled = false;
-    stopButton.disabled = true;
-    if(statusIndicator) statusIndicator.innerText = "Stopped";
-    displayText('--- SPEECH STOPPED ---', 'system-message');
-}
-
-/**
- * Main function to run the speech generator loop.
- */
 async function runSpeechGenerator() {
-    // Reset state and UI
     outputDiv.innerHTML = '';
-    isRunning = true;
-    startButton.disabled = true;
-    stopButton.disabled = false;
-    if(statusIndicator) statusIndicator.innerText = "Generating...";
-    displayText('--- STARTING SPEECH GENERATOR ---', 'system-message');
-
-    // 1. Fetch and process speech.txt
+    
+    // Fetch speech text
     let speech;
     try {
         const response = await fetch('speech.txt');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error("File not found");
         speech = await response.text();
     } catch (error) {
-        displayText(`<span style="color: red;">Error loading speech.txt: ${error.message}</span>`, 'error-message');
-        stopExecution();
+        displayText(`Error: ${error.message}`, 'elected-text');
         return;
     }
 
-    // Split text into sentences
+    // Process sentences
     const sentences = speech.split(/([.!?]\s+)/).filter(s => s.trim().length > 0);
-
-    // Rejoin the punctuation
     const finalSentences = [];
     for (let i = 0; i < sentences.length; i++) {
         const s = sentences[i].trim();
         if (s.match(/^[.!?]\s*$/)) {
-            if (finalSentences.length > 0) {
-                finalSentences[finalSentences.length - 1] += s;
-            }
+            if (finalSentences.length > 0) finalSentences[finalSentences.length - 1] += s;
         } else {
             finalSentences.push(s);
         }
     }
 
-    let count = 0;
+    // --- INFINITE LOOP ---
+    while (true) {
+        congressCount++; 
 
-    // The main loop
-    while (isRunning) {
-        count++;
+        // 1. HEADER
+        displayText(`The ${congressCount}th National People's Congress`, 'congress-header');
+        await sleep(4000); // Slower (4s)
 
-        // --- SECTION 1: Elected Text ---
-        displayText(`*** SECTION ${count} ***`, 'section-divider');
+        // 2. ELECTED TEXT
         displayText(electedText, 'elected-text');
-        if (!isRunning) break;
-        await sleep(3000); 
+        await sleep(5000); // Slower (5s)
 
-        // --- SECTION 2: 5 Sampled Stanzas ---
-        for (let i = 0; i < 5 && isRunning; i++) {
+        // 3. STANZAS (Loop 4 times)
+        for (let i = 0; i < 4; i++) {
             const sampled = sampleSentences(finalSentences);
-            const fellowDeputies = "Fellow deputies" + "!".repeat(count);
             
-            const stanza = `${fellowDeputies}<br><br>${sampled.join(' ')}`;
-            displayText(stanza, 'stanza-text');
-            await sleep(3000);
+            // "Fellow Deputies!!!"
+            const exclamations = "!".repeat(Math.min(congressCount - 12, 10));
+            displayText("Fellow deputies" + exclamations, "shout-text");
+            await sleep(3000); // Wait 3s before body text
+
+            // The Content
+            displayText(sampled.join('<br><br>'), 'stanza-text');
+            await sleep(6000); // Wait 6s to read
         }
 
-        if (!isRunning) break;
-
-        // --- SECTION 3: Thank You ---
-        const thankYou = "Thank you" + "!".repeat(count);
-        displayText(thankYou, 'thank-you-text'); 
-        await sleep(5000);
+        // 4. THANK YOU (Special Red Style)
+        const thankYouExclamations = "!".repeat(Math.min(congressCount - 12, 15));
+        displayText("Thank you" + thankYouExclamations, "final-shout");
+        
+        await sleep(8000); // Long pause (8s) before next cycle
     }
-
-    if (!isRunning) stopExecution();
 }
 
-// Event Listeners
-startButton.addEventListener('click', runSpeechGenerator);
-stopButton.addEventListener('click', stopExecution);
+// Auto-start immediately
+window.addEventListener('DOMContentLoaded', runSpeechGenerator);
