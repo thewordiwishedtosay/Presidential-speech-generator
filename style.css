@@ -1,0 +1,111 @@
+body {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#start-button {
+    background-color: #28a745;
+    color: white;
+}
+
+#start-button:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+#stop-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+#stop-button:hover:not(:disabled) {
+    background-color: #c82333;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.speech-output {
+    background-color: #1e1e1e; /* Dark console background */
+    color: #00ff00; /* Green console text */
+    padding: 15px;
+    height: 500px; /* Fixed height to allow scrolling */
+    overflow-y: auto; /* Enable vertical scroll */
+    border-radius: 5px;
+    white-space: pre-wrap; /* Respect newlines and wrapping */
+}
+
+.speech-output p {
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Specific text styling */
+.system-message {
+    color: #ffc107; /* Yellow for system messages */
+    font-weight: bold;
+}
+
+.section-divider {
+    color: #17a2b8; /* Cyan for section breaks */
+    margin-top: 15px !important;
+    font-weight: bold;
+}
+
+.elected-text {
+    color: #ffffff; /* White text for the main block */
+}
+
+.stanza-text {
+    color: #00ff00; /* Green for the randomly generated stanzas */
+    padding-left: 10px;
+    border-left: 3px solid #007bff;
+}
+
+.thank-you-text {
+    color: #dc3545; /* Red for the Thank You message */
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
