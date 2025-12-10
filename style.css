@@ -1,93 +1,121 @@
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const outputDiv = document.getElementById('speech-output');
-const statusIndicator = document.getElementById('status-indicator');
-
-let isRunning = false; 
-
-// Initial starting number for the congress (12 + 1 = 13th)
-let congressCount = 12;
-
-const electedText = "I was elected at this session to continue to serve as the president of the People's Republic of China (PRC). I would like to express my heartfelt gratitude for the trust placed in me by all the deputies and the Chinese people of all ethnic groups.";
-
-function sampleSentences(sentences) {
-    const k = Math.floor(Math.random() * 6) + 2; 
-    const shuffled = [...sentences].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, k);
+/* --- 1. Layout & Background --- */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
+    background-color: #000; /* Fallback if video fails */
 }
 
-function displayText(text, className = '') {
-    const p = document.createElement('p');
-    if (className) p.className = className; // simpler assignment
-    p.innerHTML = text; 
-    outputDiv.appendChild(p);
+#bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    /* Darken video so red text pops */
+    filter: brightness(0.4) grayscale(30%); 
+}
+
+/* --- 2. Main Speech Area --- */
+#speech-output {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    height: 85vh;
+    overflow-y: auto;
+    text-align: center;
+    z-index: 5;
     
-    // Smooth scroll to bottom
-    outputDiv.scrollTo({
-        top: outputDiv.scrollHeight,
-        behavior: 'smooth'
-    });
+    /* Hide scrollbar */
+    scrollbar-width: none; 
+}
+#speech-output::-webkit-scrollbar { display: none; }
+
+/* --- 3. Text Typography --- */
+#speech-output p {
+    opacity: 0;
+    animation: fadeInSlide 2.5s forwards; /* Slower fade in */
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    
+    /* Standard Red Text */
+    color: #ff4d4d; 
+    
+    /* Strong black shadow for readability */
+    text-shadow: 
+        2px 2px 0px #000, 
+        -1px -1px 0 #000;
 }
 
-async function runSpeechGenerator() {
-    outputDiv.innerHTML = '';
-    isRunning = true;
-    if(statusIndicator) statusIndicator.innerText = "Broadcasting...";
-
-    // Fetch speech.txt
-    let speech;
-    try {
-        const response = await fetch('speech.txt');
-        if (!response.ok) throw new Error("File not found");
-        speech = await response.text();
-    } catch (error) {
-        displayText(`Error: ${error.message}`, 'elected-text');
-        return;
-    }
-
-    // Process sentences
-    const sentences = speech.split(/([.!?]\s+)/).filter(s => s.trim().length > 0);
-    const finalSentences = [];
-    for (let i = 0; i < sentences.length; i++) {
-        const s = sentences[i].trim();
-        if (s.match(/^[.!?]\s*$/)) {
-            if (finalSentences.length > 0) finalSentences[finalSentences.length - 1] += s;
-        } else {
-            finalSentences.push(s);
-        }
-    }
-
-    // --- INFINITE LOOP ---
-    while (isRunning) {
-        congressCount++; // Increase the congress number
-
-        // 1. HEADER: "The 13th National People's Congress"
-        displayText(`The ${congressCount}th National People's Congress`, 'congress-header');
-        await sleep(2000);
-
-        // 2. ELECTED TEXT
-        displayText(electedText, 'elected-text');
-        await sleep(3000); 
-
-        // 3. STANZAS (Loop 5 times)
-        for (let i = 0; i < 5; i++) {
-            const sampled = sampleSentences(finalSentences);
-            
-            // Shout the title separately for size
-            displayText("Fellow deputies" + "!".repeat(congressCount - 12), "shout-text");
-            await sleep(1000);
-
-            // Display the random sentences
-            displayText(sampled.join('<br><br>'), 'stanza-text');
-            await sleep(4000);
-        }
-
-        // 4. THANK YOU
-        displayText("Thank you" + "!".repeat(congressCount - 12), "shout-text");
-        await sleep(4000);
-    }
+/* The Congress Header */
+.congress-header {
+    font-size: 16pt; /* Smaller */
+    color: #fff; 
+    background: #b30000; /* Dark Red box */
+    display: inline-block;
+    padding: 8px 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    border: 1px solid #ff4d4d;
+    box-shadow: 3px 3px 0px #000;
 }
 
-// AUTO-START: Run as soon as page is ready
-window.addEventListener('DOMContentLoaded', () => {
-    runSpeechGenerator();
-});
+/* Introduction Text */
+.elected-text {
+    font-size: 14pt; /* Smaller */
+    font-weight: bold;
+    color: #ff6666;
+}
+
+/* Main Body Text (Stanzas) */
+.stanza-text {
+    font-size: 18pt; /* Much smaller than before */
+    font-weight: 500;
+}
+
+/* "Fellow Deputies" */
+.shout-text {
+    display: block;
+    font-size: 30pt; 
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ff1a1a; /* Bright Red */
+    margin-top: 40px;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+/* "Thank You" - The reddest and boldest */
+.final-shout {
+    display: block;
+    font-size: 40pt;
+    font-weight: 900;
+    color: #ff0000; /* Pure Red */
+    text-transform: uppercase;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    letter-spacing: 5px;
+    
+    /* Extra Glow */
+    text-shadow: 
+        4px 4px 0px #000,
+        0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes fadeInSlide {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
