@@ -10,9 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Added some standard Chinese fonts to the stack */
     font-family: "Microsoft YaHei", "SimHei", "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
-    background-color: #000; /* Fallback if video fails */
+    background-color: #000;
 }
 
 #bg-video {
@@ -26,8 +25,8 @@ body {
     z-index: -100;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    /* Darken video so red text pops */
-    filter: brightness(0.4) grayscale(50%); 
+    /* Darken video slightly less since we have a white backing now */
+    filter: brightness(0.5) grayscale(30%); 
 }
 
 /* --- 2. Main Speech Area --- */
@@ -40,6 +39,13 @@ body {
     text-align: center;
     z-index: 5;
     
+    /* --- NEW: Semi-transparent White Background --- */
+    background-color: rgba(255, 255, 255, 0.5);
+    
+    /* Added padding/radius so the text doesn't touch the edges */
+    padding: 40px;
+    border-radius: 15px;
+    
     /* Hide scrollbar */
     scrollbar-width: none; 
 }
@@ -48,40 +54,37 @@ body {
 /* --- 3. Text Typography --- */
 #speech-output p {
     opacity: 0;
-    animation: fadeInSlide 2.5s forwards; /* Slower fade in */
+    animation: fadeInSlide 2.5s forwards; 
     margin-bottom: 2rem;
     line-height: 1.8;
     
-    /* NEW: A deeper, more traditional Chinese Red */
-    color: #e600b; 
-    
-    /* REMOVED: Black outline/shadow */
-    /* text-shadow: 2px 2px 0px #000, -1px -1px 0 #000; */
+    /* Fixed typo: Standard Chinese Red */
+    color: #DE2910; 
 }
 
 /* The Congress Header */
 .congress-header {
     font-size: 16pt;
+    
+    /* --- NEW: Black Text on Red Background --- */
     color: #000000; 
-    background: #941524; /* Keep dark red background box */
+    background: #DE2910; 
+    
+    /* Golden Outline */
+    border: 3px solid #FFD700; 
+    
     display: inline-block;
-    padding: 8px 20px;
+    padding: 10px 25px;
     font-weight: bold;
     letter-spacing: 2px;
-    margin-top: 50px;
+    margin-top: 10px;
     margin-bottom: 30px;
-
-    /* NEW: Golden Outline, slightly thicker */
-    border: 2px solid #FFD700; 
-    /* REMOVED: Black box shadow for cleaner look */
-    /* box-shadow: 3px 3px 0px #000; */
 }
 
 /* Introduction Text */
 .elected-text {
     font-size: 14pt;
     font-weight: bold;
-    /* Match the new main red color */
     color: #DE2910;
 }
 
@@ -97,26 +100,22 @@ body {
     font-size: 30pt; 
     font-weight: 900;
     text-transform: uppercase;
-    /* Keep shouts brighter for emphasis */
     color: #FF0000; 
     margin-top: 40px;
     margin-bottom: 20px;
     letter-spacing: 3px;
 }
 
-/* "Thank You" - The reddest and boldest */
+/* "Thank You" */
 .final-shout {
     display: block;
     font-size: 40pt;
     font-weight: 900;
-    color: #FF0000; /* Pure Red */
+    color: #FF0000; 
     text-transform: uppercase;
     margin-top: 50px;
     margin-bottom: 30px;
     letter-spacing: 5px;
-    
-    /* REMOVED: Extra Glow/Shadow */
-    /* text-shadow: 4px 4px 0px #000, 0 0 20px rgba(255, 0, 0, 0.5); */
 }
 
 @keyframes fadeInSlide {
