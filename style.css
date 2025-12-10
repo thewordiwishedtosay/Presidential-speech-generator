@@ -1,3 +1,5 @@
+/* style.css */
+
 /* --- 1. Layout & Background --- */
 body {
     margin: 0;
@@ -8,7 +10,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
+    /* Added some standard Chinese fonts to the stack */
+    font-family: "Microsoft YaHei", "SimHei", "Songti SC", "STSong", "SimSun", "Times New Roman", serif;
     background-color: #000; /* Fallback if video fails */
 }
 
@@ -49,40 +52,42 @@ body {
     margin-bottom: 2rem;
     line-height: 1.8;
     
-    /* Standard Red Text */
-    color: #ff4d4d; 
+    /* NEW: A deeper, more traditional Chinese Red */
+    color: #DE2910; 
     
-    /* Strong black shadow for readability */
-    text-shadow: 
-        2px 2px 0px #000, 
-        -1px -1px 0 #000;
+    /* REMOVED: Black outline/shadow */
+    /* text-shadow: 2px 2px 0px #000, -1px -1px 0 #000; */
 }
 
 /* The Congress Header */
 .congress-header {
-    font-size: 16pt; /* Smaller */
+    font-size: 16pt;
     color: #fff; 
-    background: #b30000; /* Dark Red box */
+    background: #b30000; /* Keep dark red background box */
     display: inline-block;
     padding: 8px 20px;
     font-weight: bold;
     letter-spacing: 2px;
     margin-top: 50px;
     margin-bottom: 30px;
-    border: 1px solid #ff4d4d;
-    box-shadow: 3px 3px 0px #000;
+
+    /* NEW: Golden Outline, slightly thicker */
+    border: 2px solid #FFD700; 
+    /* REMOVED: Black box shadow for cleaner look */
+    /* box-shadow: 3px 3px 0px #000; */
 }
 
 /* Introduction Text */
 .elected-text {
-    font-size: 14pt; /* Smaller */
+    font-size: 14pt;
     font-weight: bold;
-    color: #ff6666;
+    /* Match the new main red color */
+    color: #DE2910;
 }
 
 /* Main Body Text (Stanzas) */
 .stanza-text {
-    font-size: 18pt; /* Much smaller than before */
+    font-size: 18pt;
     font-weight: 500;
 }
 
@@ -92,7 +97,8 @@ body {
     font-size: 30pt; 
     font-weight: 900;
     text-transform: uppercase;
-    color: #ff1a1a; /* Bright Red */
+    /* Keep shouts brighter for emphasis */
+    color: #FF0000; 
     margin-top: 40px;
     margin-bottom: 20px;
     letter-spacing: 3px;
@@ -103,16 +109,14 @@ body {
     display: block;
     font-size: 40pt;
     font-weight: 900;
-    color: #ff0000; /* Pure Red */
+    color: #FF0000; /* Pure Red */
     text-transform: uppercase;
     margin-top: 50px;
     margin-bottom: 30px;
     letter-spacing: 5px;
     
-    /* Extra Glow */
-    text-shadow: 
-        4px 4px 0px #000,
-        0 0 20px rgba(255, 0, 0, 0.5);
+    /* REMOVED: Extra Glow/Shadow */
+    /* text-shadow: 4px 4px 0px #000, 0 0 20px rgba(255, 0, 0, 0.5); */
 }
 
 @keyframes fadeInSlide {
